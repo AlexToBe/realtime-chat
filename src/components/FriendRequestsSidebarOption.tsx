@@ -17,15 +17,27 @@ const FriendRequestsSidebarOption: FC<FriendRequestsSidebarOptionProps> = ({ ses
 
        useEffect(() => {
         pushClient.subscribe(toPusherKey(`user:${sessionId}:incoming_friend_requests`))
+           
+        pushClient.subscribe(toPusherKey(`user:${sessionId}:friends`))
         
         const friendRequestsHandler = () => {
             SetUnSeenRequestCount((pre)=>pre+1)
         }
+           
+        const addedFriendHandler = () => {
+            SetUnSeenRequestCount((pre)=>pre-1)
+        }
+           
         pushClient.bind('incoming_friend_requests', friendRequestsHandler)
+           
+        pushClient.bind('new_friend_requests', addedFriendHandler)
       
         return () => {
             pushClient.unsubscribe(toPusherKey(`user:${sessionId}:incoming_friend_requests`))
+            pushClient.unsubscribe(toPusherKey(`user:${sessionId}:friends`))
+
              pushClient.unbind('incoming_friend_requests', friendRequestsHandler)
+             pushClient.unbind('new_friend_requests', addedFriendHandler)
      
         }
     },[sessionId])
