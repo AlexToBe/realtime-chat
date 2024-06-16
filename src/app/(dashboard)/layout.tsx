@@ -6,12 +6,12 @@ import { notFound } from 'next/navigation'
 import {FC,ReactNode} from 'react'
 import  Image  from 'next/image'
 import SignOutButton from '@/components/SignOutButton'
-import FriendRequestsSidebarOption from '@/components/FriendRequestsSidebarOption'
 import { fetchRedis } from '@/helpers/redis'
 import { getFriendsByUserId } from '@/helpers/get-friends-by-user-id'
 import SidebarChatList from '@/components/SidebarChatList'
 import MobileChatLayout from '@/components/MobileChatLayout'
 import { SidebarOptions } from '@/types/typings'
+import FriendRequestsSidebarOption from '@/components/FriendRequestsSidebarOption'
 
 interface LayoutProps{
     children: ReactNode
