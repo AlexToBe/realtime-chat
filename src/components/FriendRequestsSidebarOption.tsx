@@ -30,14 +30,14 @@ const FriendRequestsSidebarOption: FC<FriendRequestsSidebarOptionProps> = ({ ses
            
         pushClient.bind('incoming_friend_requests', friendRequestsHandler)
            
-        pushClient.bind('new_friend_requests', addedFriendHandler)
+        pushClient.bind('new_friend', addedFriendHandler)
       
         return () => {
             pushClient.unsubscribe(toPusherKey(`user:${sessionId}:incoming_friend_requests`))
             pushClient.unsubscribe(toPusherKey(`user:${sessionId}:friends`))
 
              pushClient.unbind('incoming_friend_requests', friendRequestsHandler)
-             pushClient.unbind('new_friend_requests', addedFriendHandler)
+             pushClient.unbind('new_friend', addedFriendHandler)
      
         }
     },[sessionId])
